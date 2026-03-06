@@ -1,7 +1,7 @@
 import "@vibecodeapp/proxy"; // DO NOT REMOVE OTHERWISE VIBECODE PROXY WILL NOT WORK
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import "./env";
+import "./env.ts";
 import { sampleRouter } from "./routes/sample";
 import { coachRouter } from "./routes/coach";
 import { contractsRouter } from "./routes/contracts";
