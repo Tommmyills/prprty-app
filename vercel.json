@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "backend/src/index.ts": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/(.*)",
