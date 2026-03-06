@@ -15,6 +15,11 @@
     },
     "android": {
       "edgeToEdgeEnabled": true
-    }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static"
+    },
+    "platforms": ["ios", "android", "web"]
   }
 }
