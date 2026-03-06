@@ -2,6 +2,9 @@
   "name": "prprty-app",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "hono": "4.6.0",
     "@vercel/node": "latest"
