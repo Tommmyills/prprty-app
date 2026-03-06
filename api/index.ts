@@ -8,6 +8,8 @@ const allowed = [
   /^http:\/\/localhost(:\d+)?$/,
   /^http:\/\/127\.0\.0\.1(:\d+)?$/,
   /^https:\/\/[a-z0-9-]+\.vercel\.app$/,
+  /^https:\/\/[a-z0-9-]+\.vibecode\.run$/,
+  /^https:\/\/[a-z0-9-]+\.vibecodeapp\.com$/,
 ];
 
 app.use(
@@ -26,13 +28,27 @@ app.get("/", (c) => {
 });
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const url = new URL(req.url || "/", `https://${req.headers.host}`);
-  const request = new Request(url.toString(), {
-    method: req.method,
-    headers: req.headers as HeadersInit,
-    body: req.method !== "GET" && req.method !== "HEAD" ? JSON.stringify(req.body) : undefined,
-  });
-  const response = await app.fetch(request);
-  const text = await response.text();
-  res.status(response.status).send(text);
+  try {
+    const url = new URL(req.url || "/", `https://${req.headers.host}`);
+    const request = new Request(url.toString(), {
+      method: req.method,
+      headers: req.headers as HeadersInit,
+      body:
+        req.method !== "GET" && req.method !== "HEAD"
+          ? JSON.stringify(req.body)
+          : undefined,
+    });
+    const response = await app.fetch(request);
+    const text = await response.text();
+
+    // Forward response headers
+    response.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+
+    res.status(response.status).send(text);
+  } catch (err) {
+    console.error("Handler error:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
