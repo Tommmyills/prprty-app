@@ -4,10 +4,10 @@
       "runtime": "nodejs20.x"
     }
   },
-  "routes": [
+  "rewrites": [
     {
-      "src": "/(.*)",
-      "dest": "backend/src/index.ts"
+      "source": "/(.*)",
+      "destination": "backend/src/index.ts"
     }
   ]
 }
