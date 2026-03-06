@@ -1,17 +1,12 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { logger } from "hono/logger";
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const app = new Hono();
 
 const allowed = [
   /^http:\/\/localhost(:\d+)?$/,
   /^http:\/\/127\.0\.0\.1(:\d+)?$/,
-  /^https:\/\/[a-z0-9-]+\.dev\.vibecode\.run$/,
-  /^https:\/\/[a-z0-9-]+\.vibecode\.run$/,
-  /^https:\/\/[a-z0-9-]+\.vibecodeapp\.com$/,
-  /^https:\/\/[a-z0-9-]+\.vibecode\.dev$/,
-  /^https:\/\/vibecode\.dev$/,
   /^https:\/\/[a-z0-9-]+\.vercel\.app$/,
 ];
 
@@ -24,12 +19,20 @@ app.use(
   })
 );
 
-app.use("*", logger());
-
 app.get("/health", (c) => c.json({ status: "ok" }));
 
 app.get("/", (c) => {
   return c.text("PRPRTY API is running 🚀");
 });
 
-export default app.fetch;
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const url = new URL(req.url || "/", `https://${req.headers.host}`);
+  const request = new Request(url.toString(), {
+    method: req.method,
+    headers: req.headers as HeadersInit,
+    body: req.method !== "GET" && req.method !== "HEAD" ? JSON.stringify(req.body) : undefined,
+  });
+  const response = await app.fetch(request);
+  const text = await response.text();
+  res.status(response.status).send(text);
+}
