@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd mobile && npm install && npx expo install react-native-web react-dom @expo/metro-runtime && npx expo export --platform web",
+  "buildCommand": "cd mobile && npm install && NODE_OPTIONS=--openssl-legacy-provider EXPO_USE_FAST_RESOLVER=1 npx expo export --platform web --output-dir dist",
   "outputDirectory": "mobile/dist",
   "rewrites": [
     {
@@ -10,5 +10,10 @@
       "source": "/(.*)",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "functions": {
+    "api/index.ts": {
+      "runtime": "nodejs20.x"
+    }
+  }
 }
