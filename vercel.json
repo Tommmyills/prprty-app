@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "backend/src/index.ts": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "routes": [
     {
       "src": "/(.*)",
