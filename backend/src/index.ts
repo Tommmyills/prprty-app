@@ -41,7 +41,9 @@ app.route("/api/sample", sampleRouter);
 app.route("/api/coach", coachRouter);
 app.route("/api/contracts", contractsRouter);
 app.route("/api/email", emailRouter);
-
+app.get("/", (c) => {
+  return c.text("PRPRTY API is running 🚀");
+});
 const port = Number(process.env.PORT) || 3000;
 
 export default {
