@@ -1,12 +1,13 @@
 {
-  "name": "prprty-app",
-  "version": "1.0.0",
-  "private": true,
-  "engines": {
-    "node": "24.x"
-  },
-  "dependencies": {
-    "hono": "4.6.0",
-    "@vercel/node": "latest"
-  }
+    "name": "prprty-app",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+          "node": "20.x"
+    },
+    "dependencies": {
+          "hono": "4.6.0",
+          "zod": "3.23.8",
+          "@vercel/node": "latest"
+    }
 }
