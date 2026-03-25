@@ -1,14 +1,1 @@
-{
-  "buildCommand": "cd mobile && npm install && npm install --save-dev metro-config@0.76.9 && npx expo export --platform web --output-dir dist",
-  "outputDirectory": "mobile/dist",
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/index.ts"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
+{}
